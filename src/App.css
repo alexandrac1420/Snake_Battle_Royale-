@@ -1,0 +1,29 @@
+/* App.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  background-color: #1f1f1f; /* Fondo oscuro estilo arcade */
+  font-family: 'Press Start 2P', cursive; /* Fuente estilo retro */
+  color: #fff; /* Texto blanco */
+}
+
+.title {
+  margin: 40px 0; /* Espacio alrededor del título */
+  text-align: center;
+}
+
+.title h1 {
+  font-size: 48px; /* Tamaño grande del título */
+  color: #ffcc00; /* Texto amarillo arcade */
+  text-shadow: 2px 2px 4px #000; /* Sombra de texto */
+}
+
+.gameCanvas {
+  background-color: #1f1f1f; /* Fondo oscuro */
+  border: 8px solid #ffcc00; /* Borde amarillo arcade */
+  box-shadow: 0 0 10px #fff; /* Sombra blanca */
+}
