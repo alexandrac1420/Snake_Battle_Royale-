@@ -1,70 +1,129 @@
-# Getting Started with Create React App
+# Snake Battle Royale
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A multiplayer snake battle game developed with React and Spring Boot that allows multiple users to compete in real-time.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### `npm start`
+### Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You need to install the following tools and configure their dependencies:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Java** (versions 7 or 8)
+    ```sh
+    java -version
+    ```
+    Should return something like:
+    ```sh
+    java version "1.8.0"
+    Java(TM) SE Runtime Environment (build 1.8.0-b132)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.0-b70, mixed mode)
+    ```
 
-### `npm test`
+2. **Maven**
+    - Download Maven from [here](http://maven.apache.org/download.html)
+    - Follow the installation instructions [here](http://maven.apache.org/download.html#Installation)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    Verify the installation:
+    ```sh
+    mvn -version
+    ```
+    Should return something like:
+    ```sh
+    Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T12:29:23-05:00)
+    Maven home: /Users/dnielben/Applications/apache-maven-3.2.5
+    Java version: 1.8.0, vendor: Oracle Corporation
+    Java home: /Library/Java/JavaVirtualMachines/jdk1.8.0.jdk/Contents/Home/jre
+    Default locale: es_ES, platform encoding: UTF-8
+    OS name: "mac os x", version: "10.10.1", arch: "x86_64", family: "mac"
+    ```
 
-### `npm run build`
+3. **Git**
+    - Install Git by following the instructions [here](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    Verify the installation:
+    ```sh
+    git --version
+    ```
+    Should return something like:
+    ```sh
+    git version 2.2.1
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Node.js** and **npm**
+    - Download Node.js from [here](https://nodejs.org/)
+    - npm is included with Node.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    Verify the installation:
+    ```sh
+    node -v
+    ```
+    Should return something like:
+    ```sh
+    v14.17.0
+    ```
 
-### `npm run eject`
+    ```sh
+    npm -v
+    ```
+    Should return something like:
+    ```sh
+    6.14.13
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Clone the repository and navigate into the project directory:
+    ```sh
+    git clone https://github.com/alexandrac1420/Snake_Battle_Royale-
+    cd Snake_Battle_Royale-
+    ```
+2. Install the React frontend dependencies and build the project:
+    ```sh
+    cd ../front
+    npm install
+    npm run build
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Running the Application
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+To run the backend and frontend, follow these steps:
 
-## Learn More
+1. **Run the React frontend:**
+    ```sh
+    cd front
+    npm start
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    The frontend will start on `http://localhost:3000` and communicate with the backend to retrieve and update the game actions.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    ![alt text](image.png)
 
-### Code Splitting
+## Game Controls
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Use the arrow keys on your keyboard to control the snake:
+- **Up Arrow:** Move up
+- **Down Arrow:** Move down
+- **Left Arrow:** Move left
+- **Right Arrow:** Move right
 
-### Analyzing the Bundle Size
+## Built With
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+* [Maven](https://maven.apache.org/) - Dependency Management for backend
+* [npm](https://www.npmjs.com/) - Dependency Management for frontend
+* [Spring Boot](https://spring.io/projects/spring-boot) - Backend framework
+* [React](https://reactjs.org/) - Frontend framework
+* [Git](http://git-scm.com/) - Version Control System
 
-### Making a Progressive Web App
+## Versioning
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+I use [GitHub](https://github.com/) for versioning. For the versions available, see the [tags on this repository](https://github.com/alexandrac1420/Snake_Battle_Royale-/tags).
 
-### Advanced Configuration
+## Authors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* **Alexandra Cortes Tovar** - [alexandrac1420](https://github.com/alexandrac1420)
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
