@@ -98,7 +98,7 @@ To run the backend and frontend, follow these steps:
 
     The frontend will start on `http://localhost:3000` and communicate with the backend to retrieve and update the game actions.
 
-    ![alt text](image.png)
+    ![alt text](https://github.com/alexandrac1420/Snake_Battle_Royale-/blob/main/Pictures/image.png)
 
 ## Game Controls
 
