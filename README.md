@@ -86,7 +86,7 @@ To run the backend and frontend, follow these steps:
 
 ### Class Diagram
 
-![Class Diagram](path/to/class-diagram.png)
+![Class Diagram](https://github.com/alexandrac1420/Snake_Battle_Royale-/blob/main/Pictures/DiagramaClases.png)
 
 The class diagram provides an overview of the structure of the Snake Game application. Below is a general description of each class and their relationships:
 
@@ -155,7 +155,7 @@ This class diagram provides a detailed view of the structure and relationships w
 
 ### Deployment Diagram
 
-![Deployment Diagram](path/to/deployment-diagram.png)
+![Deployment Diagram](https://github.com/alexandrac1420/Snake_Battle_Royale-/blob/main/Pictures/Despliegue.png)
 
 The deployment diagram shows how the application is organized across different nodes:
 - **Client (Browser)**: Contains the React application.
@@ -165,7 +165,7 @@ The deployment diagram shows how the application is organized across different n
 
 ### Component Diagram
 
-![Component Diagram](path/to/component-diagram.png)
+![Component Diagram](https://github.com/alexandrac1420/Snake_Battle_Royale-/blob/main/Pictures/Componentes.png)
 
 The component diagram shows the internal structure of the application:
 - **Frontend (React)**: Includes the UI components and WebSocket client.
@@ -232,65 +232,6 @@ Configures the application security.
 3. **Real-Time Communication with WebSockets**
    - **Description**: Enables real-time bidirectional communication between the client and server.
    - **Where**: WebSocket connections for updating game state in real-time.
-
-
-### User Stories
-![image](https://github.com/alexandrac1420/Snake_Battle_Royale-/assets/138069735/a27b70c3-145f-4a03-bc85-add7e833be11)
-
-#### User Registration
-
-**AS A** new user,  
-**I WANT** to register on the platform,  
-**SO THAT** I can access and play Snake Battle Royale.
-
-- **Acceptance Criteria:**
-  - The user must be able to register with an email and password.
-
-#### Login
-
-**AS A** player,  
-**I WANT** to log into the platform,  
-**SO THAT** I can access my account and play.
-
-- **Acceptance Criteria:**
-  - The user must be able to log in with their email and password.
-  - The system must validate the credentials and allow access to the account.
-
-#### Create a Multiplayer Game
-
-**AS A** player,  
-**I WANT** to create a multiplayer game,  
-**SO THAT** I can invite other players and compete in real-time.
-
-- **Acceptance Criteria:**
-  - The user must have the option to create a new multiplayer game from the main menu.
-  - The user must be able to configure the game parameters (game name, maximum number of players, available powers, game duration).
-  - Once the game is created, the user must be redirected to the game lobby where they can wait for other players to join.
-  - The user who created the game must have the option to start the game once the minimum number of players is reached.
-
-#### Join Existing Multiplayer Games
-
-**AS A** player,  
-**I WANT** to join existing multiplayer games,  
-**SO THAT** I can compete with other players in real-time.
-
-- **Acceptance Criteria:**
-  - The user must have the option to search for available multiplayer games from the main menu.
-  - The system must display a list of available games with relevant information (game name, current number of players, game status).
-  - The user must be able to select and join a game from the list of available games.
-  - Once joined, the user must be redirected to the game lobby where they can see other players and the preparation status.
-  - The game must start automatically when the minimum number of players is reached or when the game creator decides to start it.
-
-#### Special Powers
-
-**AS A** player,  
-**I WANT** to acquire and use special powers during the game,  
-**SO THAT** I can gain advantages over other players.
-
-- **Acceptance Criteria:**
-  - Powers must appear randomly on the board.
-  - Players must be able to collect the powers by moving over them.
-  - Each power must have a unique and temporary effect (e.g., increased speed, temporary invulnerability, etc.).
 
 
 ## Testing
@@ -442,6 +383,9 @@ JaCoCo is used for code coverage reporting:
      ```
 
    - View the generated coverage report at `target/site/jacoco/index.html`.
+  
+     ![image](https://github.com/user-attachments/assets/63cd0127-e912-4ad2-9ac1-dc742eb4ac47)
+
 
 ## Deployment on AWS
 
