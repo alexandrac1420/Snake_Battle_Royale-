@@ -6,37 +6,59 @@
     <title>Crear Nueva Partida</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Press Start 2P', cursive;
             text-align: center;
-            background-color: #f0f0f0;
+            background-color: #000;
+            color: #fff;
             padding-top: 50px;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         h1 {
-            color: #4CAF50;
+            color: #ffcc00;
+            text-shadow: 2px 2px #000;
+            margin-bottom: 30px;
         }
         form {
             display: inline-block;
             text-align: left;
-            background-color: #fff;
+            background-color: #111;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px #000000;
+            box-shadow: 0 0 10px #ffcc00;
         }
         label, input {
             display: block;
             margin: 10px 0;
+            color: #fff;
+        }
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #222;
+            color: #fff;
+            width: calc(100% - 22px); /* Adjust for padding and border */
         }
         button {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #ffcc00;
+            color: #000;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            font-family: 'Press Start 2P', cursive;
+            box-shadow: 0 0 10px #ffcc00;
+            transition: background-color 0.3s, box-shadow 0.3s;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #ffaa00;
+            box-shadow: 0 0 15px #ffaa00;
         }
     </style>
 </head>

@@ -6,29 +6,43 @@
     <title>Ver Partidas Disponibles</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Press Start 2P', cursive;
             text-align: center;
-            background-color: #f0f0f0;
+            background-color: #000;
+            color: #fff;
             padding-top: 50px;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         h1 {
-            color: #4CAF50;
+            color: #ffcc00;
+            text-shadow: 2px 2px #000;
+            margin-bottom: 30px;
         }
         ul {
             list-style-type: none;
             padding: 0;
+            width: 80%;
         }
         li {
-            background-color: #fff;
-            margin: 10px;
+            background-color: #111;
+            margin: 10px 0;
             padding: 10px;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px #000000;
+            box-shadow: 0 0 10px #ffcc00;
         }
         a {
-            color: #4CAF50;
+            color: #ffcc00;
             text-decoration: none;
             font-size: 18px;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #ffaa00;
         }
     </style>
 </head>

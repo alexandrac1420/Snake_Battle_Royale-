@@ -101,6 +101,7 @@ public class SnakeGame {
         if (activeSnakes <= 1) {
             this.gameOver = true;
             this.winner = snakes.stream().filter(snake -> !snake.isGameOver()).map(Snake::getId).findFirst().orElse(null);
+            System.out.println("Game Over! Winner is " + this.winner);
         }
     }
 }

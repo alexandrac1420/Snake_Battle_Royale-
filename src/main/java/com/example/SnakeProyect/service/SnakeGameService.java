@@ -13,8 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class SnakeGameService {
-    private static final int CANVAS_WIDTH = 400;
-    private static final int CANVAS_HEIGHT = 400;
+    private static final int CANVAS_WIDTH = 750;
+    private static final int CANVAS_HEIGHT = 420;
     private static final int DEFAULT_SPEED = 100;
     private static final int SPEED_POWER_SPEED = 50; // Speed when speed power is active
     static final int BOARD_WIDTH = CANVAS_WIDTH / 10;
@@ -225,7 +225,9 @@ public class SnakeGameService {
                 snake.setLastValidDirection(direction);
                 updateSnakePosition(snake, currentGame.getBoard(), direction);
                 updatePowerEffects(snake); // Update power effects after movement
+                currentGame.checkGameOver();
             }
+
         }
         return currentGame;
     }

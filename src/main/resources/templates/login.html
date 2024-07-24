@@ -6,8 +6,9 @@
     <title>Login</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Press Start 2P', cursive;
+            background-color: #000;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -15,32 +16,52 @@
             margin: 0;
         }
         .container {
-            background: #fff;
+            background: #111;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px #ffcc00;
+            text-align: center;
         }
-        h2 {
+        h1 {
             margin-bottom: 20px;
+            color: #ffcc00;
+            text-shadow: 2px 2px #000;
         }
         input[type="text"], input[type="password"] {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
+            background-color: #222;
+            color: #fff;
         }
         button {
             width: 100%;
             padding: 10px;
-            background: #4CAF50;
+            background: #ffcc00;
             border: none;
-            color: #fff;
+            color: #000;
             border-radius: 4px;
             cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
         }
         button:hover {
-            background: #45a049;
+            background: #ffaa00;
+        }
+        .message {
+            margin: 10px 0;
+            color: #ff0000;
+        }
+        p {
+            color: #fff;
+        }
+        a {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -54,8 +75,12 @@
             You have been logged out.
         </div>
         <form th:action="@{/login}" method="post">
-            <label> Username: <input type="text" name="username"/> </label>
-            <label> Password: <input type="password" name="password"/> </label>
+            <label>
+                <input type="text" name="username" placeholder="Username"/>
+            </label>
+            <label>
+                <input type="password" name="password" placeholder="Password"/>
+            </label>
             <button type="submit">Sign In</button>
         </form>
         <p>Don't have an account? <a href="/register">Register here</a></p>

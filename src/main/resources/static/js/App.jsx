@@ -19,7 +19,6 @@ const App = () => {
         const wsUrl = WShostURL() + '/game';
 
         socketRef.current = new WebSocket(wsUrl);
-
         socketRef.current.onopen = () => {
             console.log('WebSocket connection established');
         };
@@ -27,13 +26,14 @@ const App = () => {
         socketRef.current.onmessage = (event) => {
             messageBufferRef.current += event.data;
             try {
-                const optimizedGameState = JSON.parse(messageBufferRef.current);
-                setGameState(optimizedGameState);
+                const updatedGameState = JSON.parse(messageBufferRef.current);
+                setGameState(updatedGameState);
                 messageBufferRef.current = "";
-                console.log('Received game state:', optimizedGameState);
+                console.log('Received game state:', updatedGameState);
 
-                if (!snakeId && optimizedGameState.snakes.length > 0) {
-                    const newSnakeId = optimizedGameState.snakes[optimizedGameState.snakes.length - 1].id;
+                // Solo establece el snakeId si aún no está establecido
+                if (!snakeId && updatedGameState.snakes.length > 0) {
+                    const newSnakeId = updatedGameState.snakes[updatedGameState.snakes.length - 1].id;
                     setSnakeId(newSnakeId);
                 }
             } catch (e) {
@@ -58,7 +58,10 @@ const App = () => {
         if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
             console.log('Sending game state to server:', moveRequest);
             const data = JSON.stringify(moveRequest);
-            socketRef.current.send(data);
+            const CHUNK_SIZE = 4096;
+            for (let i = 0; i < data.length; i += CHUNK_SIZE) {
+                socketRef.current.send(data.slice(i, i + CHUNK_SIZE));
+            }
         }
     };
 
@@ -76,7 +79,7 @@ const App = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             moveSnake();
-        }, 700);
+        }, 100);
 
         return () => clearInterval(interval);
     }, [gameState, snakeDirection, snakeId]);
@@ -105,7 +108,7 @@ const App = () => {
                 return;
         }
 
-        if (newDirection && isValidDirectionChange(currentSnake.dir, newDirection)) {
+        if (newDirection && isValidDirectionChange(currentSnake.lastValidDirection, newDirection)) {
             setSnakeDirection(newDirection);
         }
     };
@@ -128,14 +131,14 @@ const App = () => {
     };
 
     return (
-        <div>
-            <h1>Snake Battle Royale</h1>
+        <div style={{ textAlign: 'center', backgroundColor: '#000', minHeight: '100vh', color: '#fff', fontFamily: 'Press Start 2P, cursive' }}>
+            <h1 style={{ color: '#ffcc00', textShadow: '2px 2px #000' }}>Snake Battle Royale</h1>
             {gameState ? (
                 <GameBoard gameState={gameState} />
             ) : (
                 <p>Loading game...</p>
             )}
-            {!isReady && <button onClick={handleReady}>Ready</button>}
+            {!isReady && <button onClick={handleReady} style={{ padding: '10px 20px', backgroundColor: '#ffcc00', color: '#000', border: 'none', cursor: 'pointer', fontFamily: 'Press Start 2P, cursive' }}>Ready</button>}
             {snakeId && <PlayerInfo snakeId={snakeId} gameState={gameState} />}
         </div>
     );
@@ -148,56 +151,45 @@ const GameBoard = ({ gameState }) => {
         console.log("Current game state in GameBoard:", gameState);
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
+        const cellSize = canvas.width / gameState.boardWidth;
 
-        if (gameState && gameState.board) {
+        if (gameState && gameState.snakes) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Renderizar el tablero
-            gameState.board.forEach((row, y) => {
-                row.forEach((cell, x) => {
-                    if (cell && cell.type) {
-                        switch (cell.type) {
-                            case 'snake':
-                                ctx.fillStyle = 'green';
-                                break;
-                            case 'apple':
-                                ctx.fillStyle = 'red';
-                                break;
-                            case 'powerFood':
-                                ctx.fillStyle = 'blue';
-                                break;
-                            default:
-                                ctx.fillStyle = 'white';
-                        }
-                        ctx.fillRect(x * 10, y * 10, 10, 10);
-                    }
-                });
-            });
-        }
-
-        if (gameState.snakes) {
             gameState.snakes.forEach(snake => {
-                ctx.fillStyle = 'green';
-                snake.body.forEach(segment => {
-                    ctx.fillRect(segment.x * 10, segment.y * 10, 10, 10);
-                });
+                if (Array.isArray(snake.body)) {
+                    snake.body.forEach((segment, index) => {
+                        ctx.fillStyle = index === 0 ? '#FFD700' : 'green'; // Head in gold, body in green
+                        ctx.fillRect(segment.x * cellSize, segment.y * cellSize, cellSize, cellSize);
+                    });
+                }
             });
-        }
 
-        if (gameState.apple) {
-            ctx.fillStyle = 'red';
-            ctx.fillRect(gameState.apple.x * 10, gameState.apple.y * 10, 10, 10);
-        }
+            if (gameState.apple) {
+                ctx.fillStyle = 'red';
+                ctx.beginPath();
+                ctx.arc((gameState.apple.x + 0.5) * cellSize, (gameState.apple.y + 0.5) * cellSize, cellSize / 2, 0, 2 * Math.PI);
+                ctx.fill();
+            }
 
-        if (gameState.powerFood) {
-            ctx.fillStyle = 'blue';
-            ctx.fillRect(gameState.powerFood.x * 10, gameState.powerFood.y * 10, 10, 10);
+            if (gameState.powerFood && gameState.powerFood.type) {
+                ctx.fillStyle = 'blue';
+                ctx.beginPath();
+                ctx.arc((gameState.powerFood.x + 0.5) * cellSize, (gameState.powerFood.y + 0.5) * cellSize, cellSize / 2, 0, 2 * Math.PI);
+                ctx.fill();
+            }
         }
-
     }, [gameState]);
 
     return (
-        <canvas ref={canvasRef} width="400" height="400" style={{ border: '1px solid black' }} />
+        <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
+            <canvas ref={canvasRef} width="750" height="420" style={{ border: '3px solid #ffcc00', boxShadow: '0 0 10px #ffcc00' }} />
+            {gameState && gameState.gameOver && (
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: '#ffcc00', textShadow: '2px 2px #000' }}>
+                    <h2>Game Over! Winner is {gameState.winner}</h2>
+                </div>
+            )}
+        </div>
     );
 };
 
@@ -205,14 +197,13 @@ const PlayerInfo = ({ snakeId, gameState }) => {
     const snake = gameState.snakes.find(s => s.id === snakeId);
 
     return (
-        <div style={{ padding: '10px', border: '1px solid white', color: 'white' }}>
+        <div id="player-info" style={{ position: 'absolute', top: '20px', right: '20px', padding: '10px', backgroundColor: 'rgba(0, 0, 0, 0.7)', border: '2px solid #fff', color: '#fff', fontFamily: 'Press Start 2P, cursive', textAlign: 'left' }}>
             <h3>Player Info</h3>
-            <p><strong>Player:</strong> {snake.id}</p>
-            <p><strong>Score:</strong> {snake.s}</p>
-            {snake.p && (
+            <p><strong>Score:</strong> {snake.score}</p>
+            {snake.activePower && (
                 <React.Fragment>
-                    <p><strong>Power:</strong> {snake.p}</p>
-                    <p><strong>Time Left:</strong> {Math.max(snake.pd / 1000, 0)}s</p>
+                    <p><strong>Power:</strong> {snake.activePower}</p>
+                    <p><strong>Time Left:</strong> {Math.max(snake.powerDuration / 1000, 0)}s</p>
                 </React.Fragment>
             )}
         </div>

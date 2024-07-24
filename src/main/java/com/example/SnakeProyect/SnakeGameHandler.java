@@ -66,31 +66,31 @@ public class SnakeGameHandler extends TextWebSocketHandler {
         try {
             String sessionId = session.getId();
             sessionMessageBuffers.get(sessionId).append(message.getPayload());
+            System.out.println("Received message from session " + sessionId + ": " + message.getPayload());
 
-            // Try to parse the accumulated message
             String completeMessage = sessionMessageBuffers.get(sessionId).toString();
             try {
                 if (completeMessage.contains("direction")) {
                     MoveRequest moveRequest = objectMapper.readValue(completeMessage, MoveRequest.class);
                     sessionMessageBuffers.put(sessionId, new StringBuilder()); // Clear buffer after successful parsing
                     String snakeId = sessionToSnakeMap.get(sessionId);
+                    System.out.println("Move request for snake " + snakeId + ": " + moveRequest.getDirection());
                     snakeGameService.moveSnake(snakeId, moveRequest.getDirection());
                 } else if (completeMessage.contains("ready")) {
                     ReadyRequest readyRequest = objectMapper.readValue(completeMessage, ReadyRequest.class);
                     sessionMessageBuffers.put(sessionId, new StringBuilder()); // Clear buffer after successful parsing
                     String snakeId = sessionToSnakeMap.get(sessionId);
+                    System.out.println("Ready request for snake " + snakeId);
                     snakeGameService.setPlayerReady(snakeId);
                 }
 
                 // Broadcast the updated game state to all clients
                 broadcastGameState(snakeGameService.getGameState());
             } catch (Exception e) {
-                // If parsing fails, wait for more message fragments
-                System.out.println("Waiting for more message fragments...");
+                System.out.println("Error parsing message: " + e.getMessage());
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            session.close(CloseStatus.SERVER_ERROR);
+            System.out.println("Error handling message: " + e.getMessage());
         }
     }
 

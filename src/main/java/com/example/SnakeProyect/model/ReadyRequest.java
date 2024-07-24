@@ -1,25 +1,25 @@
 package com.example.SnakeProyect.model;
 
 public class ReadyRequest {
-    private String playerName;
+    private String snakeId;
     private boolean isReady;
 
     // Constructor
     public ReadyRequest() {
     }
 
-    public ReadyRequest(String playerName, boolean isReady) {
-        this.playerName = playerName;
+    public ReadyRequest(String snakeId, boolean isReady) {
+        this.snakeId = snakeId;
         this.isReady = isReady;
     }
 
     // Getters y Setters
-    public String getPlayerName() {
-        return playerName;
+    public String getSnakeId() {
+        return snakeId;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    public void setSnakeId(String snakeId) {
+        this.snakeId = snakeId;
     }
 
     public boolean isReady() {
