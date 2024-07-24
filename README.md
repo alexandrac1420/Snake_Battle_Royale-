@@ -81,6 +81,8 @@ To run the backend and frontend, follow these steps:
     ```
 
     The backend will start on `http://localhost:8080`, and it will store the game data and session information in MongoDB.
+   ![Demo GIF](https://github.com/alexandrac1420/Snake_Battle_Royale-/blob/main/Pictures/localhost.gif)
+   
 
 ## Architectural Design
 
