@@ -1,0 +1,118 @@
+@startuml
+
+package "Model" {
+    class SnakeGame {
+        -int width
+        -int height
+        -List<Snake> activeSnakes
+        -List<Snake> eliminatedSnakes
+        -Point apple
+        -PowerFood powerFood
+        -boolean gameOver
+        -String winner
+        +checkGameOver()
+        +determineWinner()
+    }
+
+    class Snake {
+        -List<Point> body
+        -String direction
+        -boolean isAlive
+        +move()
+        +grow()
+        +shrink()
+        +setDirection()
+    }
+
+    class Apple {
+        -Point position
+    }
+
+    class PowerFood {
+        -Point position
+        -String type
+    }
+
+    class Point {
+        -int x
+        -int y
+    }
+
+    class User {
+        -String username
+        -String password
+        -int maxScore
+        +getScore()
+        +setScore()
+    }
+
+    class GameRoom {
+        -String id
+        -List<User> users
+        -SnakeGame game
+        +addUser()
+        +removeUser()
+    }
+
+}
+
+package "Controller" {
+    class GameRoomController {
+        +startGame()
+        +joinRoom()
+    }
+
+    class SnakeGameController {
+        +moveSnake()
+        +eatApple()
+    }
+
+    class UserController {
+        +register()
+        +login()
+    }
+}
+
+package "Service" {
+    class GameRoomService {
+        +createRoom()
+        +deleteRoom()
+    }
+
+    class SnakeGameService {
+        +updateGameState()
+    }
+
+    class UserService {
+        +authenticate()
+        +registerUser()
+    }
+}
+
+package "Repository" {
+    class GameRoomRepository {
+        +save()
+        +findById()
+    }
+
+    class UserRepository {
+        +save()
+        +findByUsername()
+    }
+}
+
+SnakeGame --> Snake
+SnakeGame --> Apple
+SnakeGame --> PowerFood
+Apple --> Point
+PowerFood --> Point
+Snake --> Point
+GameRoom --> User
+GameRoom --> SnakeGame
+GameRoomController --> GameRoomService
+SnakeGameController --> SnakeGameService
+UserController --> UserService
+GameRoomService --> GameRoomRepository
+UserService --> UserRepository
+
+@enduml

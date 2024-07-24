@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Partidas Disponibles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #000000;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Partidas Disponibles</h1>
+    <ul id="gameList"></ul>
+    <script>
+        async function loadAvailableGames() {
+            const response = await fetch('/api/gamerooms/available');
+            const games = await response.json();
+            const gameList = document.getElementById('gameList');
+            games.forEach(game => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<a href="lobby?gameId=${game.id}">${game.name}</a>`;
+                gameList.appendChild(listItem);
+            });
+        }
+        loadAvailableGames();
+    </script>
+</body>
+</html>

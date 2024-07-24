@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Nueva Partida</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #000000;
+        }
+        label, input {
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Crear Nueva Partida</h1>
+    <form id="createGameForm">
+        <label for="gameName">Nombre de la Partida:</label>
+        <input type="text" id="gameName" name="gameName" required><br>
+        <label for="maxPlayers">Número Máximo de Jugadores (1-2):</label>
+        <input type="number" id="maxPlayers" name="maxPlayers" min="1" max="2" required><br>
+        <button type="submit">Crear Partida</button>
+    </form>
+    <script>
+        document.getElementById('createGameForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const gameName = document.getElementById('gameName').value;
+            const maxPlayers = document.getElementById('maxPlayers').value;
+
+            const response = await fetch('/api/gamerooms/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name: gameName, maxPlayers: parseInt(maxPlayers) })
+            });
+
+            if (response.ok) {
+                const gameRoom = await response.json();
+                window.location.href = `lobby?gameId=${gameRoom.id}`;
+            } else {
+                alert('Error creando la partida');
+            }
+        });
+    </script>
+</body>
+</html>

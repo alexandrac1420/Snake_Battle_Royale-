@@ -1,0 +1,34 @@
+@startuml
+
+package "Frontend (React)" {
+    component [UI Components] as UIComponents
+    component [WebSocket Client] as WebSocketClient
+}
+
+package "Backend (Spring Boot)" {
+    component [GameRoomController] as GameRoomController
+    component [SnakeGameController] as SnakeGameController
+    component [UserController] as UserController
+
+    component [GameRoomService] as GameRoomService
+    component [SnakeGameService] as SnakeGameService
+    component [UserService] as UserService
+
+    component [GameRoomRepository] as GameRoomRepository
+    component [UserRepository] as UserRepository
+
+    component [Security Config] as SecurityConfig
+}
+
+UIComponents --> GameRoomController : HTTP Requests
+UIComponents --> SnakeGameController : HTTP Requests
+UIComponents --> UserController : HTTP Requests
+WebSocketClient --> SnakeGameController : WebSocket Messages
+
+GameRoomController --> GameRoomService
+SnakeGameController --> SnakeGameService
+UserController --> UserService
+
+GameRoomService --> GameRoomRepository
+UserService --> UserRepository
+

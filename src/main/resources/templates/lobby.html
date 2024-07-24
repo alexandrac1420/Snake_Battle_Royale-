@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px #000000;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lobby</h1>
+    <h2 id="gameName"></h2>
+    <ul id="playerList"></ul>
+    <button id="readyButton">Listo</button>
+    <script>
+        let gameId;
+        let playerName = 'YOUR_LOGGED_IN_PLAYER_NAME'; // Replace this with the actual logged in player's name
+
+        async function loadLobby() {
+            const urlParams = new URLSearchParams(window.location.search);
+            gameId = urlParams.get('gameId');
+
+            const playersResponse = await fetch(`/api/gamerooms/players?gameId=${gameId}`);
+            const players = await playersResponse.json();
+
+            // Solo únete si el jugador no está ya en la lista de jugadores
+            if (!players.includes(playerName)) {
+                await fetch(`/api/gamerooms/join?gameId=${gameId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ playerName })
+                });
+            }
+
+            updatePlayerList();
+            document.getElementById('readyButton').addEventListener('click', async function() {
+                await fetch(`/api/gamerooms/update-ready-status?gameId=${gameId}&isReady=true`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                updatePlayerList();
+            });
+
+            setInterval(updatePlayerList, 2000); // Polling every 2 seconds
+        }
+
+        async function updatePlayerList() {
+            const response = await fetch(`/api/gamerooms/players?gameId=${gameId}`);
+            const players = await response.json();
+            const readyResponse = await fetch(`/api/gamerooms/ready-status?gameId=${gameId}`);
+            const readyStatus = await readyResponse.json();
+            const playerList = document.getElementById('playerList');
+            playerList.innerHTML = '';
+            players.forEach((player, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${player} - ${readyStatus[index] ? 'Listo' : 'No Listo'}`;
+                playerList.appendChild(listItem);
+            });
+
+            // Check if the game can start
+            const canStartResponse = await fetch(`/api/gamerooms/can-start?gameId=${gameId}`);
+            const canStart = await canStartResponse.json();
+            if (canStart) {
+                window.location.href = '/index.html';
+            }
+        }
+
+        loadLobby();
+    </script>
+</body>
+</html>

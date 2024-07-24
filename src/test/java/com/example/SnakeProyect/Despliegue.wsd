@@ -1,0 +1,19 @@
+@startuml
+
+node "Client (Browser)" {
+    [React App] as ReactApp
+}
+
+node "Server (Spring Boot)" {
+    [API Server] as APIServer
+}
+
+node "Database (MongoDB)" {
+    [User Data] as UserData
+    [Game State] as GameState
+}
+
+ReactApp -down-> APIServer : HTTP/WebSocket
+APIServer -down-> UserData : MongoDB
+APIServer -down-> GameState : MongoDB
+
