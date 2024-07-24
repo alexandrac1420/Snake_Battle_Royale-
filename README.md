@@ -415,6 +415,9 @@ Follow these steps to deploy the application on AWS:
 
     Check the application's availability using the public DNS of the EC2 instance on port 8080.
 
+   ![Demo GIF](https://github.com/alexandrac1420/Snake_Battle_Royale-/blob/main/Pictures/Dise%C3%B1o%20sin%20t%C3%ADtulo.gif)
+
+
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management for backend
